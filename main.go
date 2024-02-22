@@ -38,6 +38,7 @@ func main() {
 		claims["user_id"] = "11223344"
 		claims["email"] = "userdemo@example.com"
 		claims["exp"] = time.Now().Add(time.Hour * 24).Unix() // Token kadaluarsa dalam 24 jam
+		claims["iss"] = "your-issuer"                         // Ganti dengan nilai issuer yang sesuai
 
 		// Tandatangani token menggunakan kunci privat
 		tokenString, err := token.SignedString(signingKey)
