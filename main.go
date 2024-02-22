@@ -31,7 +31,7 @@ func main() {
 	r := gin.Default()
 
 	// Endpoint untuk login dan menghasilkan token JWT
-	r.POST("/login", func(c *gin.Context) {
+	r.POST("login", func(c *gin.Context) {
 		// Buat token JWT
 		token := jwt.New(jwt.SigningMethodRS256)
 		claims := token.Claims.(jwt.MapClaims)
@@ -60,7 +60,7 @@ func main() {
 	})
 
 	// Endpoint untuk JWKS URI
-	r.GET("/jwks", func(c *gin.Context) {
+	r.GET("jwks", func(c *gin.Context) {
 		// Menghasilkan JWKS response
 		jwks := map[string]interface{}{
 			"keys": []map[string]interface{}{
