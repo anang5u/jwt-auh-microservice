@@ -135,4 +135,18 @@ Berikut langkah-langkap melakukan upload *push* image ke *docker registry* https
 
   ![Docker Registry](./assets/docker-registry.jpg)
 
-  Sekarang aplikasi *jwt-auth-microservice* telah berhasil di push ke docker hub, Langkah selanjutnya adalah mencoba mengunakan image tersebut di sebuah cluster kubernetes
+  ## Test Token - JWKS
+  ```
+  # Login
+  $ curl -X POST localhost:8080/login
+  {"token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjUwMCwiaXNzIjoieW91ci1pc3N1ZXIiLCJzdWIiOiJodHRwczovL2FuYW5nc3UxMy5jbG91ZCJ9.ixaNvflh5kN48tmshShTdA0e9qTyIjhsnAAzsLumWWkGGlErQHLtzS15Ys0zRG--wxyxkZN6c6K6pKcTjM9M3dqmtrKpteEWYkok6bLq4JRaP7j2Hx2qQgZS8mcTUfWsJy7I24wep5GkKfXu3dTU8DcPcYL2tnAFNsk8giSsbj4FeJ4KQxSsMmDRAi059NQDAvGgmfy20TZZ0A9TNKbyImAzfsaAvQMYYB2VHAZMJkaZ5EDjh-yfVyFQGCc3WODFBhZh5PkAJv8lirxphwe3mF86C6IN1MIwzGKzOyJ4qBuzG5V7veqW3L5Wi8-0aSrV7NP3OqsMauA68mvbBfXW5g","user":{"user_id":"111"}}
+
+  # Get Jwks
+  $ curl localhost:8080/jwks
+  {"keys":[{"kty":"RSA","n":"q6lkayVOG-0csIU7sRW0KnFOWQK0e7QEzASh3gsGjBPBAZ1s-SltJG7uFbguEngMLiIz3vq0pAHEXkzSkHodOomgJoqe3_QFMjSX7W_TwSy0sp5yt9p08OTLxWt59V-Eyv6MS_WlCCjTp4nHJGUnFPPx8XSw1_3AKtwRtnJ0Z3uCUxyCYFJVz0Ii9b9zMeSXp1Z53A6hwIQ-0UzDwQw5g1Z9CjpavkNtdJ9asV8FjxVjrbj7zwXE4IsgPkgA_4y-6glQm3TNdAbBpqw-jObZjBZpylc4-8G0PflrgTVAFni-tKxP0vx3Oq6bnEDDo3XxQMkYV-_yjxE77_aXGU_Mdw","e":"AQAB","d":"a6irD_-vgxgsXBDTJPalrdCuAGkP5F08fO-SzP1BN-zTqT2gMIvopWbk7r46Nt8PVIei3H-DdzCchT_M90t-tU3HISTjCzWxZJFTj1gJCCgPk86HyAK8QLBdlA0ZyegEEoOeXa1LuVhRlct1F8BQyHVOEc7Lckr0kGzAtxoFIzhs4SQhyJyF3ev9Rlo2aSj0-Wd387GoOokTwI9rNyp2o1QGfC1GK5yJOEXL_6c0iEOZahtIInwIIDpYl4GWjWL3ilLPX5i5x48gXJ-OlUUtnjFv7hpASRvRWvPQUq3nzkaCAIt4_rmrjpUeI-Db57sXDfjN1PO1ijCmt_ffa2lnwQ","p":"49rn1XmXYHYEURdtLl82jjfHUP_r_We_J0r4ijI-g9zE6jCNpEC2gJFtln04322YrA_1-RS6L7idxMqbKsbPzxA1bdZyVQof1jQ4IgasF1moO1Yaw7xHv7DyGhd4McKpMLfVFkaU9on4-qKwbVuEkfPxhacnk-PTiDymeDZkhic","q":"wN2SsZSWka3JanZY90IfV9yUGLVo1iw9uM4sMKXGoqSSSOr3Whe8jhYJaseXxDLZ5W8rP25lE_PHrsbCz201ibv9zg0lfYgaqnLwnBoUuO7bqeQ4x-P0nVkwQXC5sIn1ZY8JhA0qj-xiyVdYTsDhP4230mI-zl6q9HwGpEdHSTE","dp":"hnWdrZoNPH0oWvoqEd1aAl7kHeaISoe4g-V3-YVg4sua4GA6lZ0ilYg8VTwcHa09FPxuOMiEfrjBUWoGWx3rb9Ou09xip9BLrUovfdTWJQlhf3J2ZN9sr7ApjkAfS64FzZwOARExwrL03GK5Hi-Ncdu0wRw8_MbLA3BXBEWE2K0","dq":"nbRQoF6k5Ehb228cfkqWQI0AmFe2evLAIZ6M6daUXyf86h0f145zQyfn2WWNxwPhwsctcPe_NRpw3IxwfZaKYa7T8ao0Trp9O4UzFCILcdD206vndiQDQKrOV6RqYl3cyIe2u0Dc3cToXkTK09LKHOKwPhrRyoQEfFfyQmB6fPE","qi":"hnF_QSebXdxQKta94JTLJIvO7d7lPAMIvSJgHAizC3qpwU8nNuykgKp0MlADxvJO_Mo6hTlduZnRFKdfpIJv1X29AY-2v7DkxgXIMdpaJOg_y5E4vspTabmDo6O22sESSUnTQtk_0gjD68eiQ0eBXrbuOu8cJ6XuWz0OXf5eckY","kid":"","alg":""}]}
+  ```
+  Selanjutnya mencoba test validasi JWT dan *key* JWKS di https://jwt.io/#debugger-io
+
+  ![JWT IO debuger](./assets/jwt-io-debuger.png)
+
+  Selanjutnya kita akan mencoba test JWT pada konfigurasi *istio* di dalam sebuah kubernetes cluster
