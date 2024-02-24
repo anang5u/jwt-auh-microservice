@@ -1,0 +1,11 @@
+{
+    "AppName" : "App Demo v1",
+    "Description" : "App demo v1 description",
+    "Version" : "v1",
+    "Port" : "8080",
+    "Log" : { 
+        "Path" : "logs",
+        "Prefix": "demo",
+        "Ext": "log" 
+    }
+}

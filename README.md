@@ -39,7 +39,7 @@ FROM golang:1.20 AS build-stage
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY go.mod go.sum private_key.pem ./
 RUN go mod download
 
 COPY *.go ./
@@ -56,6 +56,7 @@ FROM gcr.io/distroless/base-debian11 AS build-release-stage
 WORKDIR /
 
 COPY --from=build-stage /jwt-auth-microservice /jwt-auth-microservice
+COPY --from=build-stage /private_key.pem /private_key.pem
 
 EXPOSE 8080
 
