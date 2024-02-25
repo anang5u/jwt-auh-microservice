@@ -151,3 +151,4 @@ Berikut langkah-langkap melakukan upload *push* image ke *docker registry* https
   ![JWT IO debuger](./assets/jwt-io-debuger.png)
 
   Selanjutnya kita akan mencoba test JWT pada konfigurasi *istio* di dalam sebuah kubernetes cluster
+  https://github.com/anang5u/Kubernetes/tree/master/istio/jwt-token
