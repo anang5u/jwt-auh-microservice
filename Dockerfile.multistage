@@ -3,13 +3,13 @@
 # Build the application from source
 FROM golang:1.20 AS build-stage
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY go.mod go.sum private_key.pem ./
-RUN go mod download
+# pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
+COPY go.mod go.sum ./
+RUN go mod download && go mod verify
 
-COPY *.go ./
-
+COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o /jwt-auth-microservice
 
 # Run the tests in the container
@@ -22,7 +22,9 @@ FROM gcr.io/distroless/base-debian11 AS build-release-stage
 WORKDIR /
 
 COPY --from=build-stage /jwt-auth-microservice /jwt-auth-microservice
-COPY --from=build-stage /app/private_key.pem /private_key.pem
+COPY --from=build-stage /usr/src/app/certs/private_key.pem /certs/private_key.pem
+COPY --from=build-stage /usr/src/app/config.json /config.json
+COPY --from=build-stage /usr/src/app/jwks.json /jwks.json
 
 EXPOSE 8080
 
