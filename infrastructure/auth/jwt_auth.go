@@ -119,6 +119,10 @@ func (m *jwtAuth) GenerateToken() (*entities.LoginResponse, error) {
 	token.Set(jwt.IssuerKey, JWTIssuerKey)
 	token.Set(jwt.IssuedAtKey, time.Unix(500, 0))
 
+	// User Claims
+	token.Set("userid", shared.RandStringGenerate(10))
+	token.Set("company", shared.RandStringGenerate(10))
+
 	jwkey, err := jwk.ParseKey([]byte(jwkStr))
 	if err != nil {
 		return nil, err
@@ -132,9 +136,6 @@ func (m *jwtAuth) GenerateToken() (*entities.LoginResponse, error) {
 
 	result := entities.LoginResponse{
 		Token: string(signed),
-		User: entities.UserResponse{
-			ID: "dummy-user-id",
-		},
 	}
 
 	return &result, nil

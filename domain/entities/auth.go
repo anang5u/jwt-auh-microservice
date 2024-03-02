@@ -19,6 +19,5 @@ type JSONWebKey struct {
 }
 
 type LoginResponse struct {
-	Token string       `json:"token"`
-	User  UserResponse `json:"user"`
+	Token string `json:"token"`
 }
